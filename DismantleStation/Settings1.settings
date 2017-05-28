@@ -8,5 +8,8 @@
     <Setting Name="BarcodeBaudRate" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">115200</Value>
     </Setting>
+    <Setting Name="DbConnection" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=DISMANTLING;Persist Security Info=True;User ID=sa;Password=passwordsa;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

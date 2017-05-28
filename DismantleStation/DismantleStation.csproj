@@ -63,11 +63,31 @@
     <Compile Include="BarcodeScannerForm.Designer.cs">
       <DependentUpon>BarcodeScannerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BarcodeScanningMode.cs" />
+    <Compile Include="ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="DismantleForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DismantleForm.Designer.cs">
       <DependentUpon>DismantleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Encryption.cs" />
+    <Compile Include="JumpBack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JumpBack.Designer.cs">
+      <DependentUpon>JumpBack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProductRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductRename.Designer.cs">
+      <DependentUpon>ProductRename.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,11 +96,28 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings1.settings</DependentUpon>
     </Compile>
+    <Compile Include="UserControlsHelper.cs" />
+    <Compile Include="UserLevels.cs" />
+    <Compile Include="UserLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserLogin.Designer.cs">
+      <DependentUpon>UserLogin.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BarcodeScannerForm.resx">
       <DependentUpon>BarcodeScannerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DismantleForm.resx">
       <DependentUpon>DismantleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JumpBack.resx">
+      <DependentUpon>JumpBack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductRename.resx">
+      <DependentUpon>ProductRename.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,6 +129,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserLogin.resx">
+      <DependentUpon>UserLogin.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Settings1.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>

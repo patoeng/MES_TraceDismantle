@@ -46,5 +46,18 @@ namespace DismantleStation {
                 this["BarcodeBaudRate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=DISMANTLING;Persist Security Info=True;User" +
+            " ID=sa;Password=passwordsa;")]
+        public string DbConnection {
+            get {
+                return ((string)(this["DbConnection"]));
+            }
+            set {
+                this["DbConnection"] = value;
+            }
+        }
     }
 }

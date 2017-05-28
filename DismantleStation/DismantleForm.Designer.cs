@@ -43,10 +43,12 @@
             this.tmrScanner = new System.Windows.Forms.Timer(this.components);
             this.btnBarcodeScanner = new System.Windows.Forms.Button();
             this.gbLastPosition = new System.Windows.Forms.GroupBox();
+            this.btnRename = new System.Windows.Forms.Button();
+            this.btnJumpBack = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.btnDismantle = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.lblDateTime = new System.Windows.Forms.Label();
+            this.btnDismantle = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblWorkorder = new System.Windows.Forms.Label();
             this.lblProduct = new System.Windows.Forms.Label();
@@ -56,7 +58,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblDataMatrix = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnForceToPass = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
             this.gbMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -74,6 +78,7 @@
             this.btnTraceability.TabIndex = 0;
             this.btnTraceability.Text = "Traceability";
             this.btnTraceability.UseVisualStyleBackColor = true;
+            this.btnTraceability.Visible = false;
             this.btnTraceability.Click += new System.EventHandler(this.btnTraceability_Click);
             // 
             // gbMain
@@ -115,7 +120,7 @@
             this.btnGetStatus.Name = "btnGetStatus";
             this.btnGetStatus.Size = new System.Drawing.Size(115, 55);
             this.btnGetStatus.TabIndex = 0;
-            this.btnGetStatus.Text = "GET STATUS";
+            this.btnGetStatus.Text = "&GET STATUS";
             this.btnGetStatus.UseVisualStyleBackColor = true;
             this.btnGetStatus.Click += new System.EventHandler(this.btnGetStatus_Click);
             // 
@@ -182,16 +187,18 @@
             this.btnBarcodeScanner.TabIndex = 0;
             this.btnBarcodeScanner.Text = "Barcode Scanner";
             this.btnBarcodeScanner.UseVisualStyleBackColor = true;
+            this.btnBarcodeScanner.Visible = false;
             this.btnBarcodeScanner.Click += new System.EventHandler(this.btnBarcodeScanner_Click);
             // 
             // gbLastPosition
             // 
             this.gbLastPosition.BackColor = System.Drawing.Color.White;
+            this.gbLastPosition.Controls.Add(this.btnRename);
+            this.gbLastPosition.Controls.Add(this.btnJumpBack);
             this.gbLastPosition.Controls.Add(this.lblStatus);
-            this.gbLastPosition.Controls.Add(this.btnForceToPass);
-            this.gbLastPosition.Controls.Add(this.btnDismantle);
             this.gbLastPosition.Controls.Add(this.label6);
             this.gbLastPosition.Controls.Add(this.lblDateTime);
+            this.gbLastPosition.Controls.Add(this.btnDismantle);
             this.gbLastPosition.Controls.Add(this.label5);
             this.gbLastPosition.Controls.Add(this.lblWorkorder);
             this.gbLastPosition.Controls.Add(this.lblProduct);
@@ -202,38 +209,52 @@
             this.gbLastPosition.Controls.Add(this.lblDataMatrix);
             this.gbLastPosition.Controls.Add(this.label2);
             this.gbLastPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbLastPosition.Location = new System.Drawing.Point(189, 423);
+            this.gbLastPosition.Location = new System.Drawing.Point(189, 422);
+            this.gbLastPosition.Margin = new System.Windows.Forms.Padding(10);
             this.gbLastPosition.Name = "gbLastPosition";
-            this.gbLastPosition.Size = new System.Drawing.Size(979, 249);
+            this.gbLastPosition.Padding = new System.Windows.Forms.Padding(10);
+            this.gbLastPosition.Size = new System.Drawing.Size(979, 250);
             this.gbLastPosition.TabIndex = 3;
             this.gbLastPosition.TabStop = false;
             this.gbLastPosition.Text = "Product Last Position";
             // 
+            // btnRename
+            // 
+            this.btnRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRename.Location = new System.Drawing.Point(780, 30);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(194, 55);
+            this.btnRename.TabIndex = 2;
+            this.btnRename.Text = "&RENAME";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Visible = false;
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
+            // 
+            // btnJumpBack
+            // 
+            this.btnJumpBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJumpBack.Location = new System.Drawing.Point(780, 91);
+            this.btnJumpBack.Name = "btnJumpBack";
+            this.btnJumpBack.Size = new System.Drawing.Size(194, 55);
+            this.btnJumpBack.TabIndex = 1;
+            this.btnJumpBack.Text = "&PROCESS JUMP BACK";
+            this.btnJumpBack.UseVisualStyleBackColor = true;
+            this.btnJumpBack.Visible = false;
+            this.btnJumpBack.Click += new System.EventHandler(this.btnJumpBack_Click);
+            // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(141, 199);
+            this.lblStatus.Location = new System.Drawing.Point(148, 206);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(62, 20);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Status";
             // 
-            // btnDismantle
-            // 
-            this.btnDismantle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDismantle.Location = new System.Drawing.Point(853, 182);
-            this.btnDismantle.Name = "btnDismantle";
-            this.btnDismantle.Size = new System.Drawing.Size(120, 55);
-            this.btnDismantle.TabIndex = 0;
-            this.btnDismantle.Text = "DISMANTLE";
-            this.btnDismantle.UseVisualStyleBackColor = true;
-            this.btnDismantle.Visible = false;
-            this.btnDismantle.Click += new System.EventHandler(this.btnDismantle_Click);
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 199);
+            this.label6.Location = new System.Drawing.Point(27, 206);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 20);
             this.label6.TabIndex = 0;
@@ -242,16 +263,28 @@
             // lblDateTime
             // 
             this.lblDateTime.AutoSize = true;
-            this.lblDateTime.Location = new System.Drawing.Point(141, 169);
+            this.lblDateTime.Location = new System.Drawing.Point(148, 176);
             this.lblDateTime.Name = "lblDateTime";
             this.lblDateTime.Size = new System.Drawing.Size(91, 20);
             this.lblDateTime.TabIndex = 0;
             this.lblDateTime.Text = "Date Time";
             // 
+            // btnDismantle
+            // 
+            this.btnDismantle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDismantle.Location = new System.Drawing.Point(780, 152);
+            this.btnDismantle.Name = "btnDismantle";
+            this.btnDismantle.Size = new System.Drawing.Size(194, 55);
+            this.btnDismantle.TabIndex = 0;
+            this.btnDismantle.Text = "&DISMANTLE";
+            this.btnDismantle.UseVisualStyleBackColor = true;
+            this.btnDismantle.Visible = false;
+            this.btnDismantle.Click += new System.EventHandler(this.btnDismantle_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 169);
+            this.label5.Location = new System.Drawing.Point(27, 176);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 20);
             this.label5.TabIndex = 0;
@@ -260,7 +293,7 @@
             // lblWorkorder
             // 
             this.lblWorkorder.AutoSize = true;
-            this.lblWorkorder.Location = new System.Drawing.Point(141, 135);
+            this.lblWorkorder.Location = new System.Drawing.Point(148, 142);
             this.lblWorkorder.Name = "lblWorkorder";
             this.lblWorkorder.Size = new System.Drawing.Size(92, 20);
             this.lblWorkorder.TabIndex = 0;
@@ -269,7 +302,7 @@
             // lblProduct
             // 
             this.lblProduct.AutoSize = true;
-            this.lblProduct.Location = new System.Drawing.Point(141, 101);
+            this.lblProduct.Location = new System.Drawing.Point(148, 108);
             this.lblProduct.Name = "lblProduct";
             this.lblProduct.Size = new System.Drawing.Size(71, 20);
             this.lblProduct.TabIndex = 0;
@@ -278,7 +311,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 135);
+            this.label7.Location = new System.Drawing.Point(27, 142);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(100, 20);
             this.label7.TabIndex = 0;
@@ -287,7 +320,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 101);
+            this.label4.Location = new System.Drawing.Point(27, 108);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 20);
             this.label4.TabIndex = 0;
@@ -296,7 +329,7 @@
             // lblMachine
             // 
             this.lblMachine.AutoSize = true;
-            this.lblMachine.Location = new System.Drawing.Point(141, 69);
+            this.lblMachine.Location = new System.Drawing.Point(148, 76);
             this.lblMachine.Name = "lblMachine";
             this.lblMachine.Size = new System.Drawing.Size(76, 20);
             this.lblMachine.TabIndex = 0;
@@ -305,7 +338,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 69);
+            this.label3.Location = new System.Drawing.Point(27, 76);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 20);
             this.label3.TabIndex = 0;
@@ -314,7 +347,7 @@
             // lblDataMatrix
             // 
             this.lblDataMatrix.AutoSize = true;
-            this.lblDataMatrix.Location = new System.Drawing.Point(141, 40);
+            this.lblDataMatrix.Location = new System.Drawing.Point(148, 47);
             this.lblDataMatrix.Name = "lblDataMatrix";
             this.lblDataMatrix.Size = new System.Drawing.Size(101, 20);
             this.lblDataMatrix.TabIndex = 0;
@@ -323,23 +356,45 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 40);
+            this.label2.Location = new System.Drawing.Point(27, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Data Matrix";
             // 
-            // btnForceToPass
+            // btnClear
             // 
-            this.btnForceToPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnForceToPass.Location = new System.Drawing.Point(725, 182);
-            this.btnForceToPass.Name = "btnForceToPass";
-            this.btnForceToPass.Size = new System.Drawing.Size(122, 55);
-            this.btnForceToPass.TabIndex = 0;
-            this.btnForceToPass.Text = "FORCE TO PASS";
-            this.btnForceToPass.UseVisualStyleBackColor = true;
-            this.btnForceToPass.Visible = false;
-            this.btnForceToPass.Click += new System.EventHandler(this.btnForceToPass_Click);
+            this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.Location = new System.Drawing.Point(189, 678);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(115, 55);
+            this.btnClear.TabIndex = 0;
+            this.btnClear.Text = "&Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.Location = new System.Drawing.Point(310, 678);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(115, 55);
+            this.btnLogin.TabIndex = 4;
+            this.btnLogin.Text = "&Log In";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangePassword.Location = new System.Drawing.Point(431, 678);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(115, 55);
+            this.btnChangePassword.TabIndex = 6;
+            this.btnChangePassword.Text = "Change &Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Visible = false;
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
             // DismantleForm
             // 
@@ -347,10 +402,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Green;
             this.ClientSize = new System.Drawing.Size(1384, 862);
+            this.Controls.Add(this.btnChangePassword);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.gbLastPosition);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gbMain);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnBarcodeScanner);
             this.Controls.Add(this.btnTraceability);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -400,7 +458,11 @@
         private System.Windows.Forms.Label lblDataMatrix;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnDismantle;
-        private System.Windows.Forms.Button btnForceToPass;
+        private System.Windows.Forms.Button btnJumpBack;
+        private System.Windows.Forms.Button btnRename;
+        private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnChangePassword;
     }
 }
 

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using Microsoft.ApplicationBlocks.Data;
 using Traceability.Hook.Models;
-using TraceabilityConnector;
+
 
 
 namespace DismantleStation
@@ -17,6 +15,10 @@ namespace DismantleStation
         private TraceabilityConnector.TraceabilityConnector _thisTraceabilityConnector;
         private BarcodeScannerForm _barcodeScanner;
         private ProductProcessWithDetails _productProcess=new ProductProcessWithDetails();
+        private int _currentRoleId = -1;
+        private readonly string _dbConnection = new Settings1().DbConnection;
+        private ProductRename _productRenameForm;
+
 
         public DismantleForm()
         {
@@ -46,10 +48,20 @@ namespace DismantleStation
             }
         }
 
-        private void DataMatrixReadEvent(string data)
+        private void DataMatrixReadEvent(string data, BarcodeScanningMode mode)
         {
-            SetLabelTextBox(tbReadBarcode, data);
-            GetProductLastStatus2(data);
+            if (mode == BarcodeScanningMode.Dismantle)
+            {
+                SetLabelTextBox(tbReadBarcode, data);
+                GetProductLastStatus2(data);
+            }
+            if (mode == BarcodeScanningMode.RenameNewName)
+            {
+                if (_productRenameForm != null)
+                {
+                    SetLabelTextBox(_productRenameForm.tbReadBarcode, data);
+                }
+            }
         }
         private void SetLabelTextBox(TextBox label, string text)
         {
@@ -75,18 +87,7 @@ namespace DismantleStation
                 label.Text = text;
             }
         }
-        private void SetButtonVisible(Button label, bool text)
-        {
-            if (label.InvokeRequired)
-            {
-                DelegateSeButtonVisible d = SetButtonVisible;
-                Invoke(d, label, text);
-            }
-            else
-            {
-                label.Visible = text;
-            }
-        }
+       
         private void btnTraceability_Click(object sender, EventArgs e)
         {
             _thisTraceabilityConnector?.Show();
@@ -119,11 +120,9 @@ namespace DismantleStation
         private void GetProductLastStatus2(string datamatrix)
         {
             ClearProductProcessLabels();
-            ShowHideDismantleButton(false);
             if (GetProductLastStatus(datamatrix))
             {
                 ShowProductProcessLabels();
-                ShowHideDismantleButton(true);
                 return;
             }
             MessageBox.Show(@"Failed To Get Product Information!", @"Get Product Last Status", MessageBoxButtons.OK,
@@ -141,7 +140,22 @@ namespace DismantleStation
             SetLabelText(lblWorkorder,_productProcess.WorkOrderNumber);
             SetLabelText(lblDateTime, _productProcess.DateTime.ToString("F"));
             SetLabelText(lblProduct, _productProcess.Reference);
-            SetLabelText(lblStatus,_productProcess.Result.ToString());
+            if (_productProcess.Result == ProcessResult.Dismantled || _productProcess.Result == ProcessResult.BackJumped)
+            {
+                SetLabelText(lblStatus, _productProcess.Result +" => Ulangi process di "+_productProcess.MachineName);
+            }
+            else
+            {
+                if (_productProcess.Result == ProcessResult.Renamed)
+                {
+                    SetLabelText(lblStatus,
+                        _productProcess.Result + " => from : " + _productProcess.Remarks);
+                }
+                else
+                {
+                    SetLabelText(lblStatus, _productProcess.Result.ToString());
+                }
+            }
         }
         private void ClearProductProcessLabels()
         {
@@ -153,13 +167,14 @@ namespace DismantleStation
             SetLabelText(lblStatus, string.Empty);
         }
 
-        private void ShowHideDismantleButton(bool show)
-        {
-           SetButtonVisible(btnDismantle, show);
-        }
+       
         private void btnDismantle_Click(object sender, EventArgs e)
         {
-            
+            if (!(_currentRoleId == 0 || _currentRoleId == 2))
+            {
+                MessageBox.Show(@"Anda tidak mempunyai izin untuk dismantle!", @"Dismantling", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             var result = _thisTraceabilityConnector.ProductDismantle(_productProcess.DataMatrix);
             if (!result)
             {
@@ -170,26 +185,111 @@ namespace DismantleStation
                 MessageBoxIcon.Information);
             if (_thisTraceabilityConnector.GetProductByDataMatrix(_productProcess.DataMatrix, out _productProcess))
             {
-                ShowProductProcessLabels();
-                ShowHideDismantleButton(false);
+                ShowProductProcessLabels();               
             }
 
         }
 
-        private void btnForceToPass_Click(object sender, EventArgs e)
+       private void btnClear_Click(object sender, EventArgs e)
         {
-            var result = _thisTraceabilityConnector.ForceUpdateProductOk(_productProcess.DataMatrix);
-            if (!result)
+            _productProcess = new ProductProcessWithDetails();
+            ClearProductProcessLabels();
+            tbReadBarcode.Clear();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (btnLogin.Text.Contains("Log In"))
             {
-                MessageBox.Show(@"Force Update Product to Pass data Failed!", @"Dismantling", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                using (UserLogin loginForm = new UserLogin())
+                {
+                    loginForm.ShowDialog();
+                    _currentRoleId = loginForm.LoginResult;
+                    UserControlsHelper.SetFormAccess(this, _currentRoleId, _dbConnection);
+                    if (_currentRoleId >= 0)
+                    {
+                        btnLogin.Text = @"&Log Out";
+                    }
+                }
             }
-            MessageBox.Show(@"Force Update Product to Pass data!", @"Dismantling", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-            if (_thisTraceabilityConnector.GetProductByDataMatrix(_productProcess.DataMatrix, out _productProcess))
+            else
             {
-                ShowProductProcessLabels();
-                ShowHideDismantleButton(false);
+                if (btnLogin.Text.Contains("Log Out"))
+                {
+                    _currentRoleId = -1;
+                    HideAllButton();
+                    btnLogin.Text = @"&Log In";
+                }
+            }
+        }
+
+        private void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            using (var form = new ChangePassword(_currentRoleId))
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void HideAllButton()
+        {
+            btnBarcodeScanner.Visible = false;
+            btnJumpBack.Visible = false;
+            btnTraceability.Visible = false;
+            btnRename.Visible = false;
+            btnDismantle.Visible = false;
+            btnChangePassword.Visible = false;
+        }
+
+        private void btnRename_Click(object sender, EventArgs e)
+        {
+            _productRenameForm = new ProductRename();
+            _productRenameForm?.ShowDialog();
+            if (_productRenameForm.Rename)
+            {
+               var j = _thisTraceabilityConnector.ProductRename(_productProcess.DataMatrix, _productRenameForm.NewDataMatrix);
+                if (j)
+                {
+                    GetProductLastStatus2(_productRenameForm.NewDataMatrix);
+                    MessageBox.Show(@"Process Rename is successfull");
+                }
+                else
+                {
+                    MessageBox.Show(@"Process Rename is failed!");
+                }
+            }
+            _productRenameForm.Dispose();
+        }
+
+        private void btnJumpBack_Click(object sender, EventArgs e)
+        {
+            using (var frm = new JumpBack())
+            {
+                List<ProductSequenceItem> data;
+                var i = _thisTraceabilityConnector.GetPreviousSequenceMachinesByProcessId(_productProcess.Id, out data);
+                if (i)
+                {
+                    foreach (var row in data)
+                    {
+                        frm.cbPrevProcess.Items.Add(row.MachineFamilyname);
+                    }
+                    frm.cbPrevProcess.SelectedIndex = 0;
+                }
+                frm.ShowDialog();
+                if (frm.SelectedProcess > -1)
+                {
+                    var jumpTo = data[frm.SelectedProcess].MachineFamilyId??0;
+                    var j = _thisTraceabilityConnector.ProductProcessJumpBack(_productProcess.Id, jumpTo);
+                    if (j)
+                    {
+                        GetProductLastStatus2(_productProcess.DataMatrix);
+                        MessageBox.Show(@"Process Jump Back is successfull");
+                    }
+                    else
+                    {
+                        MessageBox.Show(@"Process Jump Back is failed!");
+                    }
+                }
             }
         }
     }

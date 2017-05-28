@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace DismantleStation
 {
-    public delegate void  DataMatrixRead(string data);
+    public delegate void  DataMatrixRead(string data, BarcodeScanningMode mode);
 
     public partial class BarcodeScannerForm : Form
     {
@@ -20,6 +20,12 @@ namespace DismantleStation
 
         }
 
+        private BarcodeScanningMode _barcodeScanningMode;
+
+        public void BarcodeScanningMode(BarcodeScanningMode mode)
+        {
+            _barcodeScanningMode = mode;
+        }
         private string _commNumber;
         private int _baudrate;
         private Settings1 _settings1;
@@ -83,23 +89,23 @@ namespace DismantleStation
             if (!_tempBuffer.Contains("\r")) return;
             if (InvokeRequired)
             {
-                Invoke(new DataMatrixRead(BarcodeRead), new object[] { _tempBuffer });
+                Invoke(new DataMatrixRead(BarcodeRead), new object[] { _tempBuffer , _barcodeScanningMode });
             }
             else
             {
-                BarcodeRead(_tempBuffer);
+                BarcodeRead(_tempBuffer,_barcodeScanningMode);
             }
             _tempBuffer = "";
         }
 
-        private void BarcodeRead(string tempBuffer)
+        private void BarcodeRead(string tempBuffer, BarcodeScanningMode mode)
         {
             tempBuffer = tempBuffer.Trim('\r', '\n');
             if (Visible)
             {
                 tbRead.Text = tempBuffer;
             }
-            DataMatrixReadEvent?.Invoke(tempBuffer);
+            DataMatrixReadEvent?.Invoke(tempBuffer,mode);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
