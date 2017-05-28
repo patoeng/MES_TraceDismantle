@@ -208,6 +208,7 @@ namespace DismantleStation
                     UserControlsHelper.SetFormAccess(this, _currentRoleId, _dbConnection);
                     if (_currentRoleId >= 0)
                     {
+                        lblUserName.Text = ((UserLevels) _currentRoleId).ToString();
                         btnLogin.Text = @"&Log Out";
                     }
                 }
@@ -219,6 +220,7 @@ namespace DismantleStation
                     _currentRoleId = -1;
                     HideAllButton();
                     btnLogin.Text = @"&Log In";
+                    lblUserName.Text = @"user";
                 }
             }
         }
@@ -243,6 +245,7 @@ namespace DismantleStation
 
         private void btnRename_Click(object sender, EventArgs e)
         {
+            _barcodeScanner.BarcodeScanningMode(BarcodeScanningMode.RenameNewName);
             _productRenameForm = new ProductRename();
             _productRenameForm?.ShowDialog();
             if (_productRenameForm.Rename)
@@ -259,6 +262,7 @@ namespace DismantleStation
                 }
             }
             _productRenameForm.Dispose();
+            _barcodeScanner.BarcodeScanningMode(BarcodeScanningMode.Dismantle);
         }
 
         private void btnJumpBack_Click(object sender, EventArgs e)

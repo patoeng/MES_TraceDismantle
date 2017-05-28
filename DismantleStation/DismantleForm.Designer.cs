@@ -61,6 +61,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
+            this.lblUserName = new System.Windows.Forms.Label();
             this.gbMain.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -145,6 +146,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.lblUserName);
             this.panel2.Controls.Add(this.lbl_Jam);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(422, 115);
@@ -396,6 +398,17 @@
             this.btnChangePassword.Visible = false;
             this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
             // 
+            // lblUserName
+            // 
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserName.ForeColor = System.Drawing.Color.Green;
+            this.lblUserName.Location = new System.Drawing.Point(615, 80);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(36, 17);
+            this.lblUserName.TabIndex = 1;
+            this.lblUserName.Text = "user";
+            // 
             // DismantleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,6 +476,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnChangePassword;
+        private System.Windows.Forms.Label lblUserName;
     }
 }
 
